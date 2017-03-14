@@ -25,7 +25,7 @@ namespace EastIPDeadline
         private void GenerateGrid()
         {
             xsbSearch.Enabled = false;
-            xsbSearch.Text = "正在查询，请耐心等待大约3分钟...";
+            xsbSearch.Text = "拉取数据大约需要几分钟的时间，请稍后...";
             tabbedControlGroup.TabPages.Clear();
             var thread = new Thread(() =>
             {
@@ -63,7 +63,7 @@ namespace EastIPDeadline
 
         private void Gc_Load(object sender, EventArgs e)
         {
-            var gv = (GridView)((GridControl)sender).MainView;
+            var gv = (GridView) ((GridControl) sender).MainView;
             gv.OptionsBehavior.Editable = false;
             gv.OptionsView.ShowFooter = true;
             gv.OptionsFind.AllowFindPanel = true;

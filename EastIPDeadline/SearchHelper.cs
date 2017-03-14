@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Data;
 using System.Linq;
-using DataSyncTool.DBUtility;
 using DevExpress.XtraPrinting.Native;
+using EastIPDeadline.DBUtility;
 
 namespace EastIPDeadline
 {
     public class SearchHelper
     {
-        private DataTable _dtAlertMeta;
-        private DataTable _dtHeaderMapping;
-        private DataTable _dtPatentExInfo;
         private readonly string _sSqlAlertMeta = "select * from ALERTMETA";
 
         private readonly string _sSqlFCaseEntRel =
@@ -25,6 +22,10 @@ namespace EastIPDeadline
             @"select pc.ourno OURNO,cd.clientname CLIENTNAME,(app1.clientname||';'||app2.clientname||';'||app3.clientname||';'||app4.clientname||';'||app5.clientname) APPNAME
 from patentcase pc, clientdb cd,clientdb app1,clientdb app2,clientdb app3,clientdb app4,clientdb app5
 where pc.client = cd.clientid (+) and pc.appl_code1 = app1.clientid(+) and pc.appl_code2 = app2.clientid(+) and pc.appl_code3 = app3.clientid(+) and pc.appl_code4 = app4.clientid(+) and pc.appl_code5 = app5.clientid(+)";
+
+        private DataTable _dtAlertMeta;
+        private DataTable _dtHeaderMapping;
+        private DataTable _dtPatentExInfo;
 
         public SearchHelper()
         {
@@ -127,25 +128,26 @@ where pc.client = cd.clientid (+) and pc.appl_code1 = app1.clientid(+) and pc.ap
         private void RemoveUnuseColumns(DataTable dt)
         {
             dt.Columns.Remove(dt.Columns[0]);
-            var columnAgent = dt.Columns.Cast<DataColumn>().FirstOrDefault(dc => dc.ColumnName.ToLower().Contains("agent"));
+            var columnAgent =
+                dt.Columns.Cast<DataColumn>().FirstOrDefault(dc => dc.ColumnName.ToLower().Contains("agent"));
             if (columnAgent != null)
                 dt.Columns.Remove(columnAgent);
         }
 
-        //}
-        //    }
-        //        }
-        //                ((DataTable)ht[key]).Columns[i + 1].ColumnName = listColumnNames[i];
-        //            else
-        //                ((DataTable)ht[key]).Columns[i + 1].ColumnName = listColumnNames[i] + (((DataTable)ht[key]).Columns.Cast<DataColumn>().Count(c => c.ColumnName == listColumnNames[i]) + 1);
-        //            if (((DataTable)ht[key]).Columns.Cast<DataColumn>().Any(c => c.ColumnName == listColumnNames[i]))
-        //        {
-        //        for (int i = 0; i < listColumnNames.Count; i++)
-        //        var listColumnNames = key["TH"].ToString().Replace("<th>", "").Replace("</th>", "").Split('\n').Where(s => !string.IsNullOrEmpty(s)).ToList();
-        //    {
-        //    foreach (DataRow key in ht.Keys)
-        //{
-
         //public void SetColumnName(Hashtable ht)
+        //{
+        //    foreach (DataRow key in ht.Keys)
+        //    {
+        //        var listColumnNames = key["TH"].ToString().Replace("<th>", "").Replace("</th>", "").Split('\n').Where(s => !string.IsNullOrEmpty(s)).ToList();
+        //        for (int i = 0; i < listColumnNames.Count; i++)
+        //        {
+        //            if (((DataTable)ht[key]).Columns.Cast<DataColumn>().Any(c => c.ColumnName == listColumnNames[i]))
+        //                ((DataTable)ht[key]).Columns[i + 1].ColumnName = listColumnNames[i] + (((DataTable)ht[key]).Columns.Cast<DataColumn>().Count(c => c.ColumnName == listColumnNames[i]) + 1);
+        //            else
+        //                ((DataTable)ht[key]).Columns[i + 1].ColumnName = listColumnNames[i];
+        //        }
+        //    }
+
+        //}
     }
 }

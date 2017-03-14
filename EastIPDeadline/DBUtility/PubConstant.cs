@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace DataSyncTool.DBUtility
+namespace EastIPDeadline.DBUtility
 {
 
     public class PubConstant
