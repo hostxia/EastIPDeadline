@@ -100,9 +100,10 @@ where pc.client = cd.clientid (+) and pc.appl_code1 = app1.clientid(+) and pc.ap
             dt.Rows.Cast<DataRow>().ToList().ForEach(dr =>
             {
                 var dcOurNo = dt.Columns.Cast<DataColumn>().FirstOrDefault(c => c.ColumnName.Contains("卷号"));
-                var drEx =
-                    _dtPatentExInfo.Select($"ourno = '{(dcOurNo != null ? dr[dcOurNo].ToString() : dr[0].ToString())}'")
-                        [0];
+                var drsEx =
+                    _dtPatentExInfo.Select($"ourno = '{(dcOurNo != null ? dr[dcOurNo].ToString() : dr[0].ToString())}'");
+                if (drsEx.Length <= 0) return;
+                var drEx = drsEx[0];
                 dr["客户名称"] = drEx[1].ToString();
                 dr["申请人名称"] = drEx[2].ToString();
             });
